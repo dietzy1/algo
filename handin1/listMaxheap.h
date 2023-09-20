@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include "simple_linked_list.h"
 
 class MaxHeap
 {
@@ -17,9 +17,9 @@ public:
     virtual int deleteMax() = 0;
 };
 
-class MaxHeapVector : public MaxHeap
+class MaxHeapList : public MaxHeap
 {
-    std::vector<int> heap;
+    LinkedList<int> heap;
 
 public:
     bool isEmpty() const;
@@ -27,4 +27,8 @@ public:
     void insert(const int x);
     const int findMax() const;
     int deleteMax();
+
+private:
+    void heapifyDown(int index);
+    void heapifyUp(int index);
 };

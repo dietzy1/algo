@@ -2,6 +2,7 @@
 
 #include "maxheap.h"
 #include <iostream>
+#include <algorithm>
 
 int main()
 {
@@ -15,8 +16,13 @@ int main()
     // Find the maximum element in the heap
     std::cout << "The maximum element in the heap is: " << maxHeapVector.findMax() << std::endl;
 
+    maxHeapVector.insert(1);
+    maxHeapVector.insert(4);
+
     // Delete the maximum element in the heap
     std::cout << "The maximum element in the heap is: " << maxHeapVector.deleteMax() << std::endl;
+
+    std::cout << "The maximum element in the heap is: " << maxHeapVector.findMax() << std::endl;
 
     // Check if the heap is empty
     if (maxHeapVector.isEmpty())
@@ -51,8 +57,24 @@ int MaxHeapVector::size()
     return heap.size();
 }
 
+// Unoptimized simple way to insert elements into the heap
 void MaxHeapVector::insert(const int x)
 {
+    // Create iterator to iterate through the heap
+    std::vector<int>::iterator it;
+    // Check if the heap is empty
+    if (heap.size() == 0)
+    {
+        heap.push_back(x);
+        return;
+    }
+    // check if x is greater than heap[0]
+    if (x > heap[0])
+    {
+        heap.insert(heap.begin(), x);
+        return;
+    }
+    // Else we simply add the element to the end of the heap
     heap.push_back(x);
 }
 
@@ -64,17 +86,8 @@ const int MaxHeapVector::findMax() const
         throw std::out_of_range("Heap is empty");
     }
 
-    // Find the maximum element in the heap
-    int max = heap[0];
-
-    for (int i = 0; i < heap.size(); i++)
-    {
-        if (heap[i] > max)
-        {
-            max = heap[i];
-        }
-    }
-    return max;
+    // Since we already sort the heap when we insert an element, the maximum element is at the start of the heap
+    return heap[0];
 }
 
 int MaxHeapVector::deleteMax()
@@ -87,19 +100,21 @@ int MaxHeapVector::deleteMax()
 
     // Find the maximum element in the heap
     int max = heap[0];
-    int maxIndex = 0;
+    // Delete the maximum element in the heap
+    heap.erase(heap.begin());
 
-    for (int i = 0; i < heap.size(); i++)
+    // iterate through the heap and swap the max element to the start of the heap
+    std::vector<int>::iterator it;
+
+    for (it = heap.begin(); it != heap.end(); it++)
     {
-        if (heap[i] > max)
+        if (*it > max)
         {
-            max = heap[i];
-            maxIndex = i;
+            heap.insert(heap.begin(), *it);
+            heap.erase(it);
+            break;
         }
     }
-
-    // Delete the maximum element in the heap
-    heap.erase(heap.begin() + maxIndex);
 
     return max;
 }
