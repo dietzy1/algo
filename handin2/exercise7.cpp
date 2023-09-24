@@ -10,7 +10,6 @@ class Dictionary
 {
 private:
     // Array which contains buckets of key-value pairs.
-    // std::vector<std::pair<unsigned long, std::vector<std::pair<Object, Object>>>> buckets;
     std::vector<std::vector<std::pair<Key, Value>>> buckets;
 
     int bucketSize;
@@ -22,7 +21,7 @@ private:
 
     void resize()
     {
-
+buckets.
         int newBucketSize = bucketSize * 2;
         std::vector<std::vector<std::pair<Key, Value>>> newBuckets(newBucketSize);
 

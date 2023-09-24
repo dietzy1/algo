@@ -63,14 +63,35 @@ void Matrix<Object>::transpose()
 		return;
 	}
 
-	// Swap rows and cols to transpose the matrix in-place
-	for (int i = 0; i < cols; ++i)
+	// Dimensions are equal, perform in-place transpose - no reallocation needed
+	if (rows == cols)
 	{
-		for (int j = i + 1; j < rows; ++j)
+		for (int i = 0; i < cols; ++i)
 		{
-			// Swap element at [i][j] with element at [j][i]
-			std::swap(array[i][j], array[j][i]);
+			for (int j = i + 1; j < rows; ++j)
+			{
+
+				std::swap(array[i][j], array[j][i]);
+			}
 		}
+	}
+	// Dimensions are not equal, reallocate and copy
+	else
+	{
+		// Create a new matrix with swapped dimensions
+		Matrix<Object> transposed(cols, rows);
+
+		// Copy elements from the original matrix to the transposed matrix
+		for (int i = 0; i < rows; ++i)
+		{
+			for (int j = 0; j < cols; ++j)
+			{
+				transposed.array[j][i] = array[i][j];
+			}
+		}
+
+		// Swap the original matrix with the transposed matrix
+		*this = transposed;
 	}
 }
 // The big o notation for the transpose function is O(n^2) because it has two nested for loops.

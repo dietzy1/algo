@@ -15,3 +15,6 @@ exercise6:
 
 exercise7:
 	clang++ -std=c++17 exercise7.cpp && ./a.out
+
+test:
+	clang++ -std=c++17 test.cpp && ./a.out
