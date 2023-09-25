@@ -21,7 +21,7 @@ private:
 
     void resize()
     {
-buckets.
+
         int newBucketSize = bucketSize * 2;
         std::vector<std::vector<std::pair<Key, Value>>> newBuckets(newBucketSize);
 

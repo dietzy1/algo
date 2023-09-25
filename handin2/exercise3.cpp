@@ -43,4 +43,5 @@ bool searchMatrix(const int x, const int *const array, const int n, const int m)
 
     return false;
 }
+
 // the big o notation for this function is O(n+m) because we are iterating through the array n times and m times.

@@ -11,9 +11,6 @@ private:
     Stack<Object> front;
     Stack<Object> rear;
 
-    // Insert at rear
-    // Delete at front
-
 public:
     Queue()
     {

@@ -99,21 +99,22 @@ def linear_probe_insert(arr, key):
             index = (index + 1) % len(arr)
         arr[index] = key
 
-class ListNode:
+class Node:
     def __init__(self, key):
         self.key = key
         self.next = None
 
-def chaining_insert(arr, key):
+def insert_into_hash_table(arr, key):
     index = h(key)
+    new_node = Node(key)
     if arr[index] is None:
-        arr[index] = ListNode(key)
+        arr[index] = new_node
     else:
-        # Chaining
-        node = arr[index]
-        while node.next is not None:
-            node = node.next
-        node.next = ListNode(key)
+        current = arr[index]
+        while current.next:
+            current = current.next
+        current.next = new_node
+
 
 
 hash_table = [None] * capacity
@@ -140,19 +141,20 @@ print("Index\tValue")
 for index, value in enumerate(hash_table):
     print(f"{index}\t{value}")
 
-hash_table = [None] * capacity
-for key in keys:
-    chaining_insert(hash_table, key)
 
-# Print the results
-print("Chaining with Linked Lists:")
-print("Index\tValue")
-for index, linked_list in enumerate(hash_table):
-    print(f"Index {index}: ", end="")
-    
-    current = linked_list
-    while current:
-        print(current.key, end=" -> ")
-        current = current.next
-    
-    print("None")
+
+capacity = start_capacity
+hash_table = [None] * start_capacity
+
+print("Chaining")
+for key in keys:
+    insert_into_hash_table(hash_table, key)
+
+for i, head in enumerate(hash_table):
+    current = head
+    if current is not None:
+        print(f"Slot {i}:", end=" ")
+        while current:
+            print(current.key, end=" -> ")
+            current = current.next
+        print("None")
