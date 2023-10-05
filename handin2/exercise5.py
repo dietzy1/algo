@@ -142,10 +142,10 @@ for index, value in enumerate(hash_table):
     print(f"{index}\t{value}")
 
 
+capacity = checkLambda(len(keys), 0.7, start_capacity)
+print("Capacity: ", capacity)
 
-capacity = start_capacity
-hash_table = [None] * start_capacity
-
+hash_table = [None] * capacity
 print("Chaining")
 for key in keys:
     insert_into_hash_table(hash_table, key)
@@ -158,3 +158,4 @@ for i, head in enumerate(hash_table):
             print(current.key, end=" -> ")
             current = current.next
         print("None")
+

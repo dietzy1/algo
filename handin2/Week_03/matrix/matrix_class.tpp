@@ -94,4 +94,6 @@ void Matrix<Object>::transpose()
 		*this = transposed;
 	}
 }
+
+
 // The big o notation for the transpose function is O(n^2) because it has two nested for loops.

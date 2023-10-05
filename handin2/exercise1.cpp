@@ -19,9 +19,18 @@ public:
 
 Stack::Stack(size_t const size)
 {
-    this->size = size;
-    this->array = new int[size];
-    this->top = -1;
+    if (size <= 0)
+    {
+        this->size = 100;
+        this->array = new int[size];
+        this->top = -1;
+    }
+    else
+    {
+        this->size = size;
+        this->array = new int[size];
+        this->top = -1;
+    }
 }
 
 Stack::~Stack()
@@ -104,6 +113,3 @@ int main()
 
     return 0;
 }
-
-// Push will always be O(1) constant time because we are only adding to the end of the array
-// Pop will always be O(1) most of the time but when we are forced into reallocating the array it will be O(n) linear time
